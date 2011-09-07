@@ -4,11 +4,12 @@
  * 
  * @package		Storage
  * @category	Base
- * @author		Micheal Morgan <micheal@morgan.ly>
+ * @author		Micheal Morgan <micheal@morgan.ly>, Catch <@catchnz>
  * @copyright	(c) 2011 Micheal Morgan
  * @license		MIT
  */
 
+return array(
 	/**
 	 * Amazon S3
 	 * 
@@ -16,30 +17,32 @@
 	 * @link	https://console.aws.amazon.com/s3/
 	 * @link	https://aws-portal.amazon.com/gp/aws/developer/account/index.html?action=access-key
 	 */
-
-	// REQUIRED - AWS Keys - Under access credentials in AWS Portal
-	$config['s3']['key'] 		= NULL;
-	$config['s3']['secret_key'] = NULL;
-	
-	// REQUIRED - Bucket to work with - this can be created under AWS Portal
-	$config['s3']['bucket'] 	= NULL;
-	
-	// OPTIONAL - Prefix path with additional pathing - be sure to include trailing slash "/"
-	// If left empty, media will be written to root.
-	$config['s3']['directory']	= NULL;
-	
-	// OPTIONAL - Override default URL with CNAME. This must be configured prior to use of this 
-	// library. As of current with S3, CNAME only works with public objects. Include trailing
-	// slash without the protocol such as "example.com/"
-	$config['s3']['cname']		= NULL;
-	
-	// OPTIONAL - Create and generate URL's as public. If set to FALSE, will preauth URL's.
-	$config['s3']['public']		= FALSE;
-	
-	// OPTIONAL - Number of seconds file is authorized to be downloaded
-	$config['s3']['preauth']	= 30;
-
-	/**
+    's3' => array(
+    	'default' => array(
+	        // REQUIRED - AWS Keys - Under access credentials in AWS Portal
+	        'key'        => NULL,
+	        'secret_key' => NULL,
+	        
+	        // REQUIRED - Bucket to work with - this can be created under AWS Portal
+	        'bucket'     => NULL,
+	        
+	        // OPTIONAL - Prefix path with additional pathing - be sure to include trailing slash "/"
+		    // If left empty, media will be written to root.
+	        'directory'  => NULL,
+	        
+	        // OPTIONAL - Override default URL with CNAME. This must be configured prior to use of this 
+			// library. As of current with S3, CNAME only works with public objects. Include trailing
+			// slash without the protocol such as "example.com/"
+	        'cname' 	 =>	NULL,
+	        
+	        // OPTIONAL - Create and generate URL's as public. If set to FALSE, will preauth URL's.
+	        'public'	 => NULL,
+	        
+	        // OPTIONAL - Number of seconds file is authorized to be downloaded
+	        'preauth'	 =>30
+        )
+    ),
+    /**
 	 * EMC Atmos
 	 * 
 	 * Requires "pear/HTTP_Request2" and "pear/Net_URL2"
@@ -56,105 +59,118 @@
 	 * @link	http://www.emc.com/storage/atmos/atmos.htm
 	 * @link	http://peer1.com/
 	 */
-	
-	// REQUIRED - Atmos Credentials
-	$config['atmos']['host']			= NULL;
-	$config['atmos']['uid']				= NULL;
-	$config['atmos']['subtenant_id']	= NULL;
-	$config['atmos']['secret']			= NULL;		
-	
-	// OPTIONAL - Additional connection settings
-	$config['atmos']['port']			= 443;	
-	
-	// OPTIONAL - Prefix path with additional pathing - be sure to include trailing slash "/"
-	// If left empty, media will be written to root.
-	$config['atmos']['directory']		= NULL;
-	
-	
-	/**
+	 
+    'atmos' => array(
+    	'default' => array(
+    		// REQUIRED - Atmos Credentials
+    		'host'			=> NULL,
+    		'uid'			=> NULL,
+    		'subtenant_id'	=> NULL,
+    		'secret'		=> NULL,
+    	
+    		// OPTIONAL - Additional connection settings
+    		'port'			=> 433,
+    	
+    		// OPTIONAL - Prefix path with additional pathing - be sure to include trailing slash "/"
+			// If left empty, media will be written to root.
+    		'directory'		=> NULL
+    	)
+    ),
+    
+    /**
 	 * Rackspace Cloud Files
 	 * 
 	 * @see		classes/storage/cf.php
 	 * @link	https://manage.rackspacecloud.com/
 	 */
-	
-	// REQUIRED - Rackspace Credentials
-	$config['cf']['username']	= NULL;
-	$config['cf']['api_key']	= NULL;
-	
-	// REQUIRED - Container to work within - can be created under Rackspace manage - see link above
-	$config['cf']['container'] 	= NULL;	
-	
-	// OPTIONAL - If the specified container does not exist, it will be created with the following
-	// visibility.
-	$config['cf']['public']		= FALSE;		
-	
-	// OPTIONAL - Prefix path with additional pathing - be sure to include trailing slash "/"
-	// If left empty, media will be written to root.
-	$config['cf']['directory']	= NULL;
-	
-	/**
+	 
+    'cf' => array(
+    	'default' => array(
+    		// REQUIRED - Rackspace Credentials
+    		'username'	=> NULL,
+    		'api_key'	=> NULL,
+    	
+    		// REQUIRED - Container to work within - can be created under Rackspace manage - see link above
+    		'container'	=> NULL,
+    	
+    		// OPTIONAL - If the specified container does not exist, it will be created with the following
+			// visibility.
+    		'public'	=> FALSE,
+    	
+    		// OPTIONAL - Prefix path with additional pathing - be sure to include trailing slash "/"
+			// If left empty, media will be written to root.
+    		'directory'	=> NULL
+    	)
+    ),
+    
+    /**
 	 * FTP
 	 * 
 	 * @see		classes/storage/ftp.php
 	 * @link	http://us.php.net/manual/en/ftp.installation.php
 	 */
-	
-	// REQUIRED - FTP Credentials
-	$config['ftp']['host']		= NULL;
-	$config['ftp']['username']	= NULL;
-	$config['ftp']['password']	= NULL;
-	
-	// RECOMMENDED - Public URL. When not defined, Storage_Ftp::url returns FALSE
-	$config['ftp']['url']		= NULL;
-	
-	// OPTIONAL - Prefix path with additional pathing - be sure to include trailing slash "/"
-	// If left empty, media will be written to root.
-	$config['ftp']['directory']	= NULL;	
-	
-	// OPTIONAL - Additional connection settings
-	$config['ftp']['port']		= 21;
-	$config['ftp']['timeout']	= 90;
-	
-	// OPTIONAL - Boolean, whether or not to make a passive connection
-	$config['ftp']['passive']	= FALSE;
-	
-	// OPTIONAL - Boolean, whether or not to use SSL connection
-	$config['ftp']['ssl']		= TRUE;
-	
-	// OPTIONAL - The transfer mode: `FTP_BINARY` or `FTP_ASCII`
-	$config['ftp']['transfer']	= FTP_BINARY;
-
-	/**
+	 
+    'ftp' => array(
+    	'default' => array(
+	    	// REQUIRED - FTP Credentials
+	    	'host'		=> NULL,
+	    	'username'	=> NULL,
+	    	'password'	=> NULL,
+	    	
+	    	// RECOMMENDED - Public URL. When not defined, Storage_Ftp::url returns FALSE
+	    	'url'		=> NULL,
+	    	
+	    	// OPTIONAL - Prefix path with additional pathing - be sure to include trailing slash "/"
+			// If left empty, media will be written to root.
+	    	'directory'	=> NULL,
+	    	
+	    	// OPTIONAL - Additional connection settings
+	    	'port'		=> 21,
+	    	'timeout'	=> 90,
+	    	
+			// OPTIONAL - Boolean, whether or not to make a passive connection
+	    	'passive'	=> FALSE,
+	    	
+	    	// OPTIONAL - Boolean, whether or not to use SSL connection
+	    	'ssl'		=> TRUE,
+	    	// OPTIONAL - The transfer mode: `FTP_BINARY` or `FTP_ASCII`
+	    	'transfer'	=> FTP_BINARY
+	    )
+    ),
+    
+    /**
 	 * Local file system
 	 * 
 	 * @see		classes/storage/local.php
 	 * @link	http://us.php.net/manual/en/book.filesystem.php
 	 */
-	
-	// REQUIRED - Root path to work within
-	$config['local']['root_path']	= NULL;
-	
-	// RECOMMENDED - Public URL. When not defined, Storage_Native::url returns FALSE
-	$config['local']['url']			= NULL;
-	
-	// OPTIONAL - Prefix path with additional pathing - be sure to include trailing slash "/"
-	// If left empty, media will be written to root.
-	$config['local']['directory']	= NULL;
-	
-	/**
+	 'local'=> array(
+	 	'default' => array(
+	 		// REQUIRED - Root path to work within
+	 		'root_path' => NULL,
+	 	
+	 		// RECOMMENDED - Public URL. When not defined, Storage_Native::url returns FALSE
+	 		'url'		=> NULL,
+	 	
+	 		// OPTIONAL - Prefix path with additional pathing - be sure to include trailing slash "/"
+			// If left empty, media will be written to root.
+	 		'directory'	=> NULL
+	 	)
+	 ),
+	 
+	 /**
 	 * Unit Testing
 	 * 
 	 * @see		tests/kohana/StorageTest.php
 	 */
-	
-	// Whether or not to run storage tests.
-	$config['unittest']['enabled']	= TRUE;
-	
-	// Directory path to file samples. Not required but useful for testing large files. Simply
-	// specify path to a directory of sample files and each one will be tested across all enabled
-	// drivers. Disable by setting FALSE. Goal is to test 2 GB files on each driver before 
-	// releasing future versions.
-	$config['unittest']['samples']	= FALSE;
-	
-return $config;
+	 'unittest' => array(
+	 	// Whether or not to run storage tests.
+	 	'enabled'	=> FALSE,
+	 	
+		// Directory path to file samples. Not required but useful for testing large files. Simply
+		// specify path to a directory of sample files and each one will be tested across all enabled
+		// drivers. Disable by setting FALSE. Goal is to test 2 GB files on each driver before 
+		// releasing future versions.
+	 	'samples'	=> FALSE
+	 )
+);
