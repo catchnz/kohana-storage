@@ -26,15 +26,16 @@ abstract class Kohana_Storage
 	 * @static
 	 * @access	public
 	 * @param	mixed	string|NULL
+	 * @param	string	string|default
 	 * @param	array
 	 * @return	Storage
 	 */
-	public static function factory($connection = NULL, array $config = array())
+	public static function factory($connection = NULL, $name = 'default', array $config = array())
 	{
 		$connection = $connection ? strtolower($connection) : self::$driver;
 
-		$config = $config + Kohana::config('storage.' . $connection);
-
+		$config = $config + Kohana::$config->load('storage.'.$connection.'.'.$name);
+		
 		$class = 'Storage_' . ucfirst(isset($config['driver']) ? $config['driver'] : $connection);
 		
 		return new $class($config);
